@@ -1,0 +1,51 @@
+{%extends 'core/base.html'%}
+{%block title%}Items{%endblock%}
+{%block content%}
+<div class="grid grid-cols-4 gap-6">
+
+    <div class="col-span-1">
+        <form method="get" action="{% url 'item:items' %}">
+            <div class="mb-4">
+                <label for="search" class="block text-gray-700 text-sm font-bold mb-2">Search</label>
+                <input type="text" name="search" id="search" class="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Search..." value="{{search}}">
+                <button type="submit" class="mb-12 mt-8 bg-teal-600 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline">Search</button>
+                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category</label>
+                <select name="category" id="category" class="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">All</option>
+                    {% for category in categories %} 
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="min_price" class="block text-gray-700 text-sm font-bold mb-2">Min price</label>
+                <input type="number" name="min_price" id="min_price" class="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="max_price" class="block text-gray-700 text-sm font-bold mb-2">Max price</label>
+                <input type="number" name="max_price" id="max_price" class="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <button type="submit"class="bg-teal-600 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-span-3">
+        <h2 class="mb-12 text-xl text-center">Items</h2>
+    <div class="grid grid-cols-3 gap-3 py-0 px-6">
+        {% for item in items %}
+        <div>
+            <a href="{% url 'item:detail' item.id %}">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full rounded-xl" >
+            </a>
+            <div class="px-3 bg-gray-100">
+                <h3 class="text-xl">{{ item.name }}</h3>
+                <p class="text-gray-500">Price: {{ item.price }} Ugx</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{%endblock%}
+```

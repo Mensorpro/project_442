@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<div class="w-1/2 my-6 mx-auto bg-gray-100 rounded-xl">
+    <h1 class="text-center text-2xl font-semibold  mb-6 p-7">Sign Up</h1>
+    <form class="flex flex-col items-center" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="flex flex-col w-1/2 mb-3">
+            <label for="username" class="text-lg font-semibold mb-2">Username</label><br/>
+            {{ form.username}}
+        </div>
+        <div class="flex flex-col w-1/2 mb-3">
+            <label for="email" class="text-lg font-semibold mb-2">Email</label><br/>
+            {{ form.email}}
+        </div>
+        <div class="flex flex-col w-1/2 mb-3">
+            <label for="password1" class="text-lg font-semibold mb-2">Password</label><br/>
+            {{ form.password1}}
+        </div>
+        <div class="flex flex-col w-1/2 mb-3">
+            <label for="password2" class="text-lg font-semibold mb-2">Confirm Password</label><br/>
+            {{ form.password2}}
+        </div>
+
+        {% if form.errors %}
+            <div class="flex flex-col w-1/2 mb-3">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="text-red-500 text-xs italic">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Sign Up</button>
+    </div>
+{% endblock %}

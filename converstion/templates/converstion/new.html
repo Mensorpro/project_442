@@ -1,0 +1,25 @@
+{%extends 'core/base.html' %}
+{% block title %} New coversation {% endblock %}
+{% block content %}
+    <h1>New Converstion</h1>
+
+    <form method="post" action="." >
+        {% csrf_token %}
+        <div class="space-x-6 space-y-4 mt-6 py-12 mb-8">
+            {{form.as_p}}
+        </div>
+        {% if form.errors %}
+                <div class="flex flex-col w-1/2 mb-3">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p class="text-red-500 text-xs italic">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+        {% endif %}
+    
+        <button type="submit" class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Send</button>
+        </form>
+
+{% endblock %}
+```
